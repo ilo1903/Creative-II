@@ -1,0 +1,73 @@
+/* Gesamter Hintergrund */
+body {
+    background-color: #4aa7ff; /* Hellblauer Winterhintergrund */
+    margin: 0;
+    height: 100vh; /* Fensterhöhe ausnutzen */
+    display: flex;
+    justify-content: center; /* Inhalt horizontal zentrieren */
+    align-items: center; /* Inhalt vertikal zentrieren */
+  }
+  
+  /* Container für den Schneemann */
+  .snowman {
+    position: relative; /* Damit die Kugeln und Augen sich relativ dazu ausrichten */
+    width: 200px;
+    height: 300px;
+  }
+  
+  /* Unterste Schneekugel */
+  .bottom {
+    width: 160px;
+    height: 160px;
+    background: white; /* Weiße Schneekugel */
+    border-radius: 50%; /* Macht sie rund */
+    position: absolute;
+    bottom: 0; /* Ganz unten platzieren */
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  /* Mittlere Kugel */
+  .middle {
+    width: 120px;
+    height: 120px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 110px; /* Über der unteren Kugel */
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  /* Kopf-Kugel */
+  .top {
+    width: 80px;
+    height: 80px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 200px; /* Über der mittleren Kugel */
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  /* Beide Augen */
+  .eye {
+    width: 12px;
+    height: 12px;
+    background: black; /* Schwarze Kreise */
+    border-radius: 50%;
+    position: absolute;
+    bottom: 240px; /* Höhe auf dem Kopf */
+  }
+  
+  /* Linkes Auge */
+  .eye.left {
+    left: 45%; /* Leicht links vom Zentrum */
+  }
+  
+  /* Rechtes Auge */
+  .eye.right {
+    left: 55%; /* Leicht rechts vom Zentrum */
+  }
+  
