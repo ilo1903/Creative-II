@@ -1,0 +1,128 @@
+/* Ich spreche hier sowohl das <html>-Element als auch das <body>-Element an */
+html,
+body {
+  /* Ich entferne den Außenabstand des Dokuments.
+     So klebt alles direkt an den Fensterrand und es gibt keinen weißen Rand. */
+  margin: 0;
+
+  /* Ich entferne zusätzlichen Innenabstand, damit nichts „eingedellt“ ist. */
+  padding: 0;
+
+  /* Ich schalte Scrollbalken aus.
+     Das heißt: egal was passiert, der Benutzer kann nicht scrollen.
+     Das ist sinnvoll, weil mein Canvas sowieso den ganzen Bildschirm füllen soll. */
+  overflow: hidden;
+
+  /* Ich bestimme die Schriftart für die ganze Seite.
+     "system-ui" bedeutet: nimm die Standardschrift des Systems (Windows, macOS, etc.).
+     Danach kommen Ersatz-Schriften, falls eine nicht verfügbar ist. */
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Jetzt style ich mein <canvas>-Element, also meine Zeichenfläche */
+canvas {
+  /* Ich sage dem Canvas: Du sollst dich wie ein Block-Element verhalten.
+     Ein Block-Element nimmt standardmäßig die ganze Breite ein. */
+  display: block;
+
+  /* Ich gebe dem Canvas einen weißen Hintergrund,
+     damit es wie ein Blatt Papier aussieht. */
+  background: white;
+}
+
+/* Ich style den kleinen Info-Kasten oben links, der die ID etc. anzeigt */
+#ui {
+  /* Ich positioniere diesen Kasten fest am Bildschirm.
+     "fixed" bedeutet: Er bleibt an dieser Stelle, auch wenn man scrollt
+     (wir haben zwar kein Scrollen, aber so bleibt er immer oben links). */
+  position: fixed;
+
+  /* Ich setze den Abstand von der oberen Fensterrand-Kante auf 8 Pixel.
+     Der Kasten klebt also nicht direkt an der Kante. */
+  top: 8px;
+
+  /* Ich setze den Abstand von der linken Fensterrand-Kante ebenfalls auf 8 Pixel. */
+  left: 8px;
+
+  /* Ich füge innen etwas Luft ein, damit der Text nicht direkt am Rand klebt:
+     8px oben/unten und 10px links/rechts. */
+  padding: 8px 10px;
+
+  /* Ich gebe dem Kasten einen fast weißen, leicht transparenten Hintergrund.
+     rgba(255, 255, 255, 0.9) bedeutet:
+     - Rot: 255
+     - Grün: 255
+     - Blau: 255
+     - Alpha (Durchsichtigkeit): 0.9 (also 90% Deckkraft).
+     Dadurch sehe ich eventuell ganz leicht, was dahinter ist. */
+  background: rgba(255, 255, 255, 0.9);
+
+  /* Ich runde die Ecken des Kastens ab.
+     10px bedeutet: weich, keine harten Kanten. */
+  border-radius: 10px;
+
+  /* Ich füge einen Schatten unter den Kasten.
+     0 = keine horizontale Verschiebung
+     4px = nach unten verschoben
+     10px = Unschärfe
+     rgba = Farbe des Schattens mit Transparenz */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+  /* Ich setze die „Höhenebene“ dieses Elements auf 10.
+     Je höher der z-index, desto weiter „oben“ liegt das Element über anderen.
+     So stelle ich sicher, dass der Kasten über dem Canvas liegt. */
+  z-index: 10;
+
+  /* Ich bestimme die Schriftgröße im Kasten: 13px ist eher klein und unauffällig. */
+  font-size: 13px;
+}
+
+/* Jetzt style ich speziell das Element, in dem der Titel steht */
+#title-display {
+  /* Ich mache den Titel fett, damit er stärker auffällt. */
+  font-weight: 700;
+
+  /* Ich füge unten etwas Abstand ein, damit der Text darunter nicht anklebt. */
+  margin-bottom: 4px;
+}
+
+/* Hier style ich den Bereich, in dem die Client-ID und die Meldung stehen */
+#client-info {
+  /* Ich stelle das Layout auf „flex“.
+     Damit kann ich die enthaltenen Elemente schön nebeneinander ausrichten. */
+  display: flex;
+
+  /* Ich gebe einen Abstand (Lücke) von 8px zwischen den Kindern (z.B. ID und Text). */
+  gap: 8px;
+
+  /* Ich richte alle Elemente vertikal in der Mitte aus,
+     damit sie eine gemeinsame Grundlinie haben. */
+  align-items: center;
+}
+
+/* Ich style die Anzeige für die Client-Nummer (#1/3) */
+#client-index {
+  /* Ich mache die ID etwas fetter, damit sie mehr heraussticht. */
+  font-weight: 600;
+}
+
+/* Hier style ich den Bereich für Nachrichten (z.B. Fehlertexte) */
+#message-display {
+  /* Ich setze die Schriftgröße auf 12px, etwas kleiner als der Titel. */
+  font-size: 12px;
+}
+
+/* Wenn das Nachrichten-Element die Klasse "error" bekommt, soll der Text rot werden */
+#message-display.error {
+  /* Ich färbe den Text rot.
+     #dc2626 ist ein kräftiges, modernes Rot. */
+  color: #dc2626;
+}
+
+/* Diese Regel gilt, wenn der <body> die Klasse "disconnected" hat
+   UND wir das Element #ui auswählen */
+body.disconnected #ui {
+  /* Ich zeichne einen roten Rand um den UI-Kasten,
+     um klar zu zeigen: Hier stimmt was mit der Verbindung nicht. */
+  border: 1px solid #dc2626;
+}
