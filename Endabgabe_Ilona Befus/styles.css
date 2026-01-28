@@ -1,0 +1,63 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    background: black;
+    overflow: hidden;
+    font-family: system-ui, sans-serif;
+    color: white;
+  }
+  
+  #ui {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 200px;
+    padding: 14px;
+    background: rgba(20, 20, 20, 0.85);
+    border-radius: 12px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.8);
+  }
+  
+  #ui h2 {
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  
+  .control {
+    margin-bottom: 12px;
+  }
+  
+  .control label {
+    font-size: 12px;
+    color: #aaa;
+    display: block;
+    margin-bottom: 6px;
+  }
+  
+  .control input {
+    width: 100%;
+  }
+  
+  #client-index {
+    font-size: 12px;
+    text-align: center;
+    margin-top: 10px;
+    color: #888;
+  }
+  
+  #message-display {
+    font-size: 12px;
+    color: #f55;
+    text-align: center;
+    margin-top: 6px;
+  }
+  
+  canvas {
+    display: block;
+  }
+  
