@@ -29,7 +29,7 @@ let clientId = null;
 let clientCount = 0;
 
 /*************************************************************
- * SOUND (optional – funktioniert nur nach User-Klick)
+ * SOUND (optional, lokal)
  *************************************************************/
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 let explosionBuffer = null;
@@ -40,7 +40,7 @@ async function loadSound() {
     const buf = await res.arrayBuffer();
     explosionBuffer = await audioCtx.decodeAudioData(buf);
   } catch {
-    console.warn('Kein Sound geladen');
+    console.warn('Sound nicht geladen');
   }
 }
 loadSound();
@@ -108,7 +108,7 @@ function explode(x, y, color, size) {
 }
 
 /*************************************************************
- * INTERAKTION (UI-sicher)
+ * INTERAKTION (mit BROADCAST)
  *************************************************************/
 document.body.addEventListener('pointerdown', (e) => {
   if (ui.contains(e.target)) return;
@@ -118,10 +118,18 @@ document.body.addEventListener('pointerdown', (e) => {
   const color = colorPicker.value;
   const size = Number(sizeSlider.value);
 
+  // Eigene Explosion
   explode(x, y, color, size);
   playSound(size);
 
-  send(['boom', x / canvas.width, y / canvas.height, color, size]);
+  // 🔥 RICHTIGER BROADCAST
+  send('*broadcast-message*', [
+    'boom',
+    x / canvas.width,
+    y / canvas.height,
+    color,
+    size
+  ]);
 });
 
 /*************************************************************
@@ -147,7 +155,7 @@ function animate() {
 animate();
 
 /*************************************************************
- * WEBSOCKET LOGIK
+ * WEBSOCKET HANDLING
  *************************************************************/
 try {
   socket = new WebSocket(WS_URL);
@@ -175,8 +183,13 @@ if (socket) {
         break;
 
       case 'boom': {
-        const [_, nx, ny, color, size] = msg;
-        explode(nx * canvas.width, ny * canvas.height, color, size);
+        const [, nx, ny, color, size] = msg;
+        explode(
+          nx * canvas.width,
+          ny * canvas.height,
+          color,
+          size
+        );
         playSound(size);
         break;
       }
@@ -184,4 +197,13 @@ if (socket) {
 
     indexElem.innerText = `#${clientId}/${clientCount}`;
   });
+}
+
+/*************************************************************
+ * UTILS
+ *************************************************************/
+function send(...msg) {
+  if (socket && socket.readyState === WebSocket.OPEN) {
+    socket.send(JSON.stringify(msg));
+  }
 }
